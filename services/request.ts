@@ -4,11 +4,19 @@ import axios from "axios";
 interface RequestType {
   method: string;
   url: string;
-  body?: any;
+  body?: string | FormData;
+  contentType?: string;
+  isToast?: boolean;
 }
 
-export const request = async ({ method, url, body }: RequestType) => {
-  const tokens = { access: "" };
+export const request = async ({
+  method,
+  url,
+  body,
+  contentType = "application/json",
+  isToast = true,
+}: RequestType) => {
+  const tokens = { accessToken: "" };
 
   const path = "http://localhost:8000/api/v1";
 
@@ -18,8 +26,8 @@ export const request = async ({ method, url, body }: RequestType) => {
         method: method,
         url: `${path}${url}`,
         headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + String(tokens.access),
+          "Content-Type": contentType,
+          Authorization: "Bearer " + String(tokens.accessToken),
         },
       });
       if (res.status === 200 || res.status === 204) {
@@ -33,7 +41,7 @@ export const request = async ({ method, url, body }: RequestType) => {
         method: method,
         url: `${path}${url}`,
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": contentType,
         },
       });
       if (res.status === 200 || res.status === 204) {
@@ -51,13 +59,15 @@ export const request = async ({ method, url, body }: RequestType) => {
         method: method,
         url: `${path}${url}`,
         headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + String(tokens.access),
+          "Content-Type": contentType,
+          Authorization: "Bearer " + String(tokens.accessToken),
         },
         data: body,
       });
       if (res.status === 200 || res.status === 201) {
-        toast.success("Success");
+        {
+          isToast && toast.success("Success");
+        }
         return res.data || null;
       } else {
         toast.error("Failed to Create of Update");
@@ -67,7 +77,7 @@ export const request = async ({ method, url, body }: RequestType) => {
         method: method,
         url: `${path}${url}`,
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": contentType,
         },
         data: body,
       });

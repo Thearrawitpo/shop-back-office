@@ -1,9 +1,5 @@
-import ShopTable from "@/components/table/shop-table";
+"use client";
 
-export default function Home() {
-  return (
-    <main className='flex min-h-screen flex-col items-center justify-between p-24'>
-      <ShopTable />
-    </main>
-  );
+export default function DashboardPage() {
+  return <main>dashboard page</main>;
 }

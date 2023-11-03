@@ -4,12 +4,12 @@ import Modal from "../ui/modal";
 import InputBox from "@/components/ui-components/input-box";
 import { Button } from "../ui/button";
 import { patchShopById, postShop } from "@/services/api/shop";
-import useGroupModal from "@/hooks/use-shop-modal";
+import useShopModal from "@/hooks/use-shop-modal";
 
 type Props = {};
 
 export default function ShopModal({}: Props) {
-  const { isOpen, onClose, data } = useGroupModal();
+  const { isOpen, onClose, data } = useShopModal();
   const [name, setName] = useState<string>();
   const [lat, setLat] = useState<number>();
   const [lng, setLng] = useState<number>();

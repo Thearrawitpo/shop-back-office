@@ -51,7 +51,7 @@ export const deleteShopById = async (id: number) => {
 };
 
 export const getShopById = async (id: number) => {
-  const url = `${subUrl}/update-user/${id}`;
+  const url = `${subUrl}/${id}`;
   try {
     const data = await request({
       method: "get",
