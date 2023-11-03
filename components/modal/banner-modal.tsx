@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import useBannerModal from "@/hooks/use-banner-modal";
 import { patchBannerById, postBanner } from "@/services/api/banner";
 import UploadFile from "../ui-components/upload-file";
+import SelectShop from "../ui-components/select-shop";
 
 type Props = {};
 
@@ -14,6 +15,7 @@ export default function BannerModal({}: Props) {
   const [name, setName] = useState<string>();
   const [image, setImage] = useState<File[]>([]);
   const [defaultImage, setDefaultImage] = useState<string>();
+  const [shopId, setShopId] = useState<string>();
 
   useEffect(() => {
     if (!!data) {
@@ -36,6 +38,7 @@ export default function BannerModal({}: Props) {
       const body = {
         name: name,
         image: image[0],
+        shopId: Number(shopId),
       };
       Object.entries(body).forEach(([key, value]) => {
         bodyFormData.append(key, value);
@@ -50,10 +53,12 @@ export default function BannerModal({}: Props) {
         const body = {
           name: name,
           image: image[0],
+          shopId: Number(shopId),
         };
         Object.entries(body).forEach(([key, value]) => {
           bodyFormData.append(key, value);
         });
+        console.log(body);
         const res = await postBanner(bodyFormData);
         if (!!res) {
           onClose();
@@ -88,6 +93,7 @@ export default function BannerModal({}: Props) {
                 : undefined
             }
           />
+          <SelectShop value={shopId} setValue={setShopId} />
           <Button onClick={handleSubmit}>Submit</Button>
         </div>
         {/* )} */}

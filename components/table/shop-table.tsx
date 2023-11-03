@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { ShopType, deleteShopById } from "@/services/api/shop";
-// import useAction from "@/hooks/use-action";
+import useAction from "@/hooks/use-action";
 import useShopModal from "@/hooks/use-shop-modal";
 
 const columns: ColumnDef<ShopType>[] = [
@@ -46,13 +46,13 @@ const columns: ColumnDef<ShopType>[] = [
     cell: ({ row }) => {
       const rowData = row.original;
       const modal = useShopModal();
-      // const action = useAction();
+      const action = useAction();
 
       const handleDelete = async () => {
         if (!!rowData.id) {
           const res = await deleteShopById(rowData.id);
           if (!!res) {
-            //   action.toggleDelUser();
+            action.toggleDel();
           }
         }
       };

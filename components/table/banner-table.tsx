@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { DataTable } from "@/components/ui/data-table";
-import { getShop } from "@/services/api/shop";
+import { ShopType, getShop } from "@/services/api/shop";
 import { ColumnDef } from "@tanstack/react-table";
 
 import {
@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { BsFillCaretDownFill } from "react-icons/bs";
-// import useAction from "@/hooks/use-action";
+import useAction from "@/hooks/use-action";
 import { BannerType, deleteBannerById, getBanner } from "@/services/api/banner";
 import Image from "next/image";
 import useBannerModal from "@/hooks/use-banner-modal";
@@ -47,13 +47,13 @@ const columns: ColumnDef<BannerType>[] = [
     cell: ({ row }) => {
       const rowData = row.original;
       const modal = useBannerModal();
-      // const action = useAction();
+      const action = useAction();
 
       const handleDelete = async () => {
         if (!!rowData.id) {
           const res = await deleteBannerById(rowData.id);
           if (!!res) {
-            //   action.toggleDelUser();
+            action.toggleDel();
           }
         }
       };
@@ -100,6 +100,23 @@ const columns: ColumnDef<BannerType>[] = [
           />
         </div>
       );
+    },
+  },
+  {
+    accessorKey: "shopId",
+    header: "Shop",
+    cell: ({ row }) => {
+      const shopId = row.getValue("shopId");
+      const [shopList, setShopList] = useState<ShopType[]>();
+      useEffect(() => {
+        const fetchData = async () => {
+          const shopList = await getShop();
+          setShopList(shopList);
+        };
+        fetchData();
+      }, []);
+      const shop = shopList?.find((item) => item.id === shopId);
+      return <div>{shop?.name}</div>;
     },
   },
 ];

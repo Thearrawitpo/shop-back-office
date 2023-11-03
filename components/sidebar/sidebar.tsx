@@ -18,12 +18,12 @@ export default function Sidebar({ children }: SidebarProps) {
         </div>
         <div className='flex flex-col justify-start gap-y-4'>
           <label className='text-neutral-400/80 text-xs'>Menu</label>
-          <label
+          {/* <label
             onClick={() => router.push("/user")}
             className='cursor-pointer'
           >
             User management
-          </label>
+          </label> */}
           <label
             onClick={() => router.push("/banner")}
             className='cursor-pointer'
