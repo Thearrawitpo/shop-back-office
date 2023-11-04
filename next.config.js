@@ -9,7 +9,6 @@ const nextConfig = {
         port: "8000",
       },
     ],
-    formats: ["image/webp"],
   },
 };
 

@@ -4,6 +4,7 @@ export interface BannerType {
   id?: number;
   name: string;
   image: string;
+  shopId: number;
 }
 
 const subUrl = "/banner";
