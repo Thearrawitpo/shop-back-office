@@ -135,7 +135,7 @@ const UserProvider = ({ children }: Props) => {
             "Content-Type": "application/json",
           },
           data: {
-            refresh: refreshToken,
+            refreshToken: refreshToken,
           },
         });
         if (response.status === 200) {
@@ -150,7 +150,7 @@ const UserProvider = ({ children }: Props) => {
       }
     };
 
-    const fourMinutes = 1000 * 60 * 4;
+    const fourMinutes = 1000 * 20 * 1;
 
     const interval = setInterval(() => {
       updateToken();
